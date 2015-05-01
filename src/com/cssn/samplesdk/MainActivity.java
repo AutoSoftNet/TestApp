@@ -451,6 +451,8 @@ public class MainActivity extends Activity implements WebServiceListener, CardCr
      * @param v
      */
     public void medicalCardButtonPressed(View v) {
+
+updateUI();
         mainActivityModel.setCurrentOptionType(CardType.MEDICAL_INSURANCE);
         mainActivityModel.clearImages();
 
