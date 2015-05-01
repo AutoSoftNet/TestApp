@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="module_cssnsamplesdk" default="compile.module.cssnsamplesdk">
+  <dirname property="module.cssnsamplesdk.basedir" file="${ant.file.module_cssnsamplesdk}"/>
+  
+  <property name="module.jdk.home.cssnsamplesdk" value="${jdk.home.android_api_19_platform}"/>
+  <property name="module.jdk.bin.cssnsamplesdk" value="${jdk.bin.android_api_19_platform}"/>
+  <property name="module.jdk.classpath.cssnsamplesdk" value="jdk.classpath.android_api_19_platform"/>
+  
+  <property name="compiler.args.cssnsamplesdk" value="-encoding UTF-8 -source 1.6 ${compiler.args}"/>
+  
+  <property name="cssnsamplesdk.output.dir" value="${module.cssnsamplesdk.basedir}/../../../../idScan GO/classes/production/CSSNSampleSDK"/>
+  <property name="cssnsamplesdk.testoutput.dir" value="${module.cssnsamplesdk.basedir}/../../../../idScan GO/classes/test/CSSNSampleSDK"/>
+  
+  <path id="cssnsamplesdk.module.bootclasspath">
+    <!-- Paths to be included in compilation bootclasspath -->
+  </path>
+  
+  <path id="cssnsamplesdk.module.production.classpath">
+    <path refid="${module.jdk.classpath.cssnsamplesdk}"/>
+    <pathelement location="${cssnmobilesdk.output.dir}"/>
+    <pathelement location="${basedir}/../Frameworks/MobileSDK/CSSNMobileSDK/libs/httpclient-4.2.5.jar"/>
+    <pathelement location="${basedir}/../Frameworks/MobileSDK/CSSNMobileSDK/libs/httpmime-4.2.5.jar"/>
+  </path>
+  
+  <path id="cssnsamplesdk.runtime.production.module.classpath">
+    <pathelement location="${cssnsamplesdk.output.dir}"/>
+    <path refid="cssnmobilesdk.runtime.production.module.classpath"/>
+  </path>
+  
+  <path id="cssnsamplesdk.module.classpath">
+    <path refid="${module.jdk.classpath.cssnsamplesdk}"/>
+    <pathelement location="${cssnsamplesdk.output.dir}"/>
+    <pathelement location="${cssnmobilesdk.testoutput.dir}"/>
+    <pathelement location="${cssnmobilesdk.output.dir}"/>
+    <pathelement location="${basedir}/../Frameworks/MobileSDK/CSSNMobileSDK/libs/httpclient-4.2.5.jar"/>
+    <pathelement location="${basedir}/../Frameworks/MobileSDK/CSSNMobileSDK/libs/httpmime-4.2.5.jar"/>
+  </path>
+  
+  <path id="cssnsamplesdk.runtime.module.classpath">
+    <pathelement location="${cssnsamplesdk.testoutput.dir}"/>
+    <pathelement location="${cssnsamplesdk.output.dir}"/>
+    <path refid="cssnmobilesdk.runtime.module.classpath"/>
+  </path>
+  
+  
+  <patternset id="excluded.from.module.cssnsamplesdk">
+    <patternset refid="ignored.files"/>
+  </patternset>
+  
+  <patternset id="excluded.from.compilation.cssnsamplesdk">
+    <patternset refid="excluded.from.module.cssnsamplesdk"/>
+  </patternset>
+  
+  <path id="cssnsamplesdk.module.sourcepath">
+    <dirset dir="${module.cssnsamplesdk.basedir}">
+      <include name="gen"/>
+      <include name="src"/>
+    </dirset>
+  </path>
+  
+  
+  <target name="compile.module.cssnsamplesdk" depends="compile.module.cssnsamplesdk.production,compile.module.cssnsamplesdk.tests" description="Compile module CSSNSampleSDK"/>
+  
+  <target name="compile.module.cssnsamplesdk.production" depends="register.custom.compilers,compile.module.cssnmobilesdk" description="Compile module CSSNSampleSDK; production classes">
+    <mkdir dir="${cssnsamplesdk.output.dir}"/>
+    <javac2 destdir="${cssnsamplesdk.output.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}" memorymaximumsize="${compiler.max.memory}" fork="true" executable="${module.jdk.bin.cssnsamplesdk}/javac">
+      <compilerarg line="${compiler.args.cssnsamplesdk}"/>
+      <bootclasspath refid="cssnsamplesdk.module.bootclasspath"/>
+      <classpath refid="cssnsamplesdk.module.production.classpath"/>
+      <src refid="cssnsamplesdk.module.sourcepath"/>
+      <patternset refid="excluded.from.compilation.cssnsamplesdk"/>
+    </javac2>
+    
+    <copy todir="${cssnsamplesdk.output.dir}">
+      <fileset dir="${module.cssnsamplesdk.basedir}/gen">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+      <fileset dir="${module.cssnsamplesdk.basedir}/src">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+    </copy>
+  </target>
+  
+  <target name="compile.module.cssnsamplesdk.tests" depends="register.custom.compilers,compile.module.cssnsamplesdk.production" description="compile module CSSNSampleSDK; test classes" unless="skip.tests"/>
+  
+  <target name="clean.module.cssnsamplesdk" description="cleanup module">
+    <delete dir="${cssnsamplesdk.output.dir}"/>
+    <delete dir="${cssnsamplesdk.testoutput.dir}"/>
+  </target>
+</project>
