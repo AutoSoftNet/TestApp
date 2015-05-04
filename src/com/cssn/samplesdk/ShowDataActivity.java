@@ -609,18 +609,15 @@ public class ShowDataActivity extends Activity
         info.append("<Class>").append(processedLicenseCard.getLicenceClass()).append("</Class>");
         // sex
         info.append("<Sex>").append(processedLicenseCard.getSex()).append("</Sex>");
-
-
         info.append("<Is Address Corrected>").append(processedLicenseCard.isAddressCorrected()).append("</Is Address Corrected>");
         info.append("<Is Address Verified>").append(processedLicenseCard.isAddressVerified()).append("</Is Address Verified>");
         info.append("<Is Barcode Read>").append(processedLicenseCard.getIsBarcodeRead()).append("</Is Barcode Read>");
         info.append("<Is ID Verified>").append(processedLicenseCard.getIsIDVerified()).append("</Is ID Verified>");
         info.append("<Is Ocr Read>").append(processedLicenseCard.getIsOcrRead()).append("</Is Ocr Read>");
-
         info.append("<Document Verification Confidence Rating>").append(processedLicenseCard.getDocumentVerificationConfidenceRating()).append("</Document Verification Confidence Rating>");
 
         textViewCardInfo.setText(info.toString());
-
+//testing change
         frontSideCardImageView.setImageBitmap(Util.getRoundedCornerBitmap(processedLicenseCard
                 .getReformatImage(), this.getApplicationContext()));
         imgFaceViewer.setImageBitmap(processedLicenseCard.getFaceImage());
